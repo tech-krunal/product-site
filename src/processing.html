@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoPartix | Payment</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #333, #777);
+      color: white;
+      overflow-x: hidden;
+    } */
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #333, #777);
+      padding-right: 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      background: #bbb3b3;
+      color: #222;
+      padding: 1rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.4rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffc107;
+    }
+
+    .search {
+      background: rgb(241, 239, 239);
+      color: black;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #333, #777);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0), url(https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHBheW1lbnR8ZW58MHx8fHwxNjg5NTY3NzA0&ixlib=rb-4.0.3&q=80&w=1080) no-repeat center center fixed;
+        background-size: cover;
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .message {
+      font-size: 1.6rem;
+      margin-bottom: 30px;
+      transition: opacity 0.5s ease-in-out;
+      font-weight: bold;
+    }
+
+    .success {
+      color: #4caf50;
+      font-weight: bold;
+    }
+
+    .button {
+      display: none;
+      padding: 12px 25px;
+      background-color: #ffc107;
+      color: #222;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #e0a800;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <img src="https://files.svgcdn.io/gravity-ui/gear-play.svg" alt="logo" /> AutoPartix
+        </a>
+    </div>
+    <nav>
+      <a href="index.html#about">About</a>
+      <a href="product.html">Products</a>
+      <a href="index.html#g">Photo</a>
+      <a href="shop.html">Shop</a>
+      <div class="search"><img src="https://img.icons8.com/?size=512&id=59878&format=png" height="20" width="20"/>Search</div>
+    </nav>
+  </header>
+
+  <div class="section">
+    <div class="message" id="message">Your transaction getting processed...</div>
+    <button class="button" id="homeBtn" onclick="location.href='index.html'">Go Home</button>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      const msg = document.getElementById('message');
+      msg.innerHTML = 'Payment Successful ✅';
+      msg.classList.add('success');
+      document.getElementById('homeBtn').style.display = 'inline-block';
+    }, 5000);
+  </script>
+</body>
+</html>

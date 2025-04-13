@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoPartix</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html{
+        scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #333, #777);
+      
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      height:fit-content;
+      width: 100%;
+      /* backdrop-filter: blur(10px); */
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #333, #777);
+      padding-right: 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+        background: #bbb3b3;
+        color: #222;
+        padding: 1rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.4rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffc107;
+    }
+
+    .search {
+      background: rgb(241, 239, 239);
+      color: black;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .section {
+        padding: 100px 20px 60px;
+        text-align: center;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .hero {
+      background: url('./img/indexbg.png') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      /* animation: fadeIn 2s ease;  */
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      animation: fadeIn 2s ease; 
+      position: absolute;
+      top: 20%;
+    }
+
+    .about {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+        url('') center/cover no-repeat;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        animation: fadeUp 2s ease;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      padding-top: 30px;
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+    .gallery {
+        background-color: #222;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 120px 20px;
+        min-height: 100vh;
+    }
+
+    .gallery img {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .about h2 {
+        font-size: 2rem;
+      }
+
+      .gallery img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .gallery-scroll {
+        position: relative;
+        background-color: #222;
+        overflow: hidden;
+        min-height: 100vh;
+        padding-top: 150px;
+
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .scroll-container {
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+        height: 250px;
+        margin: 0px 0;
+    }
+
+    .image-track {
+        /* display: inline-flex;
+        gap: 24px; */
+        animation: scroll 15s linear infinite;
+        height: 250px;
+        display: flex;
+        gap: 1.5rem;
+        overflow: hidden;
+        padding: 16px 40px; /* Add padding around the images */
+        position: relative;
+    }
+
+    .scroll-container.right-to-left .image-track {
+        animation-direction: reverse;
+    }
+
+    .scroll-container:hover .image-track {
+        animation-play-state: paused;
+    }
+
+    .image-track a {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 3px;
+        height: 200px;
+        width: 200px;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .image-track img {
+        width: 12rem;
+        height: auto;
+        object-fit:fill;
+        display: block;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        
+        /* width: 160px;
+        height: 160px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        z-index: 1; */
+    }
+
+    .image-track a:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    @keyframes scroll {
+        0% {
+        transform: translateX(0%);
+        }
+        100% {
+        transform: translateX(-50%);
+        }
+    }
+
+    .blur-edge {
+        position: absolute;
+        top: 0;
+        width: 15rem;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .blur-edge.left {
+        left: 0;
+        background: linear-gradient(to right, #111010 0%, transparent 100%);
+    }
+
+    .blur-edge.right {
+        right: 0;
+        background: linear-gradient(to left, #111010 0%, transparent 100%);
+    }
+
+    @media (max-width: 768px) {
+        .scroll-container {
+        height: 140px;
+        }
+
+        .image-track img {
+        height: 120px;
+        width: 120px;
+        }
+
+        .image-track a {
+        padding: 6px;
+        }
+    }
+
+    /* lightbox */
+    .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    }
+
+    .lightbox-content {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    height: 80vh;
+    background-color: #111;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    }
+
+    .lightbox-description {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    color: #eee;
+    font-size: 16px;
+    line-height: 1.6;
+    }
+
+    .lightbox-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    }
+
+    .lightbox-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 0;
+    }
+
+    .close-lightbox {
+    position: absolute;
+    top: 70px;
+    right: 40px;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1000;
+    }
+
+    .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 60px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    z-index: 1000;
+    }
+    .arrow.left { left: 30px; }
+    .arrow.right { right: 30px; }
+
+  </style>
+
+  
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <img src="https://files.svgcdn.io/gravity-ui/gear-play.svg" alt="logo" /> AutoPartix
+        </a>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="product.html">Products</a>
+      <a href="#g">Photo</a>
+      <a href="shop.html">Shop</a>
+      <div class="search"><img src="https://img.icons8.com/?size=512&id=59878&format=png" height="20" width="20"/>Search</div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Power Meets Precision</h1>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <h2>About Us</h2>
+    <p>
+      AutoPartix is a dedicated online platform specializing in high-quality mechanical automotive parts and tools. 
+      Established with a commitment to reliability, precision, and performance, we cater to automotive professionals, workshops, and individual enthusiasts 
+      seeking dependable components for repair, maintenance, and performance enhancement.
+      With a deep understanding of the automotive industry, we aim to bridge the gap between quality and accessibility 
+      by offering an extensive range of parts that meet stringent industry standards. Our platform is designed to provide 
+      a seamless and efficient shopping experience, backed by expert support and a customer-first approach.
+    </p>
+  </section>
+
+    <section class="gallery-scroll" id="g">
+        <div class="product"><h2>Our Products</h2></div>
+        <style>
+            .product {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            .product h2 {
+                font-size: 2.5rem;
+                color: white;
+                /* background: rgba(0, 0, 0, 0.5); */
+                padding: 1rem 2rem;
+                border-radius: 10px;
+            }
+        </style>
+        <div class="scroll-container left-to-right">
+          <div class="image-track">
+            <!-- Row 1 -->
+            <a href="#"><img src="./img/brake.png" data-description="..." alt="suspension"></a>
+            <a href="#"><img src="./img/light2.png" data-description="..." alt="part 2"></a>
+            <a href="#"><img src="./img/light3.png" data-description="..." alt="part 3"></a>
+            <a href="#"><img src="./img/brake2.png" data-description="..." alt="part 4"></a>
+            <a href="#"><img src="./img/suspension3.png" data-description="..." alt="part 5"></a>
+            <a href="#"><img src="./img/suspension.png" data-description="..." alt="part 6"></a>
+            <a href="#"><img src="./img/tyre.png" data-description="..." alt="part 7"></a>
+            <a href="#"><img src="./img/suspension2.png" data-description="..." alt="part 8"></a>
+            <a href="#"><img src="./img/tyre1.png" data-description="..." alt="part 9"></a>
+            <a href="#"><img src="./img/light1.png" data-description="..." alt="part 10"></a>
+            <a href="#"><img src="./img/brake.png" data-description="..." alt="suspension"></a>
+            <a href="#"><img src="./img/light2.png" data-description="..." alt="part 2"></a>
+            <a href="#"><img src="./img/light3.png" data-description="..." alt="part 3"></a>
+            <a href="#"><img src="./img/brake2.png" data-description="..." alt="part 4"></a>
+            <a href="#"><img src="./img/suspension3.png" data-description="..." alt="part 5"></a>
+            <a href="#"><img src="./img/suspension.png" data-description="..." alt="part 6"></a>
+            <a href="#"><img src="./img/tyre.png" data-description="..." alt="part 7"></a>
+            <a href="#"><img src="./img/suspension2.png" data-description="..." alt="part 8"></a>
+            <a href="#"><img src="./img/tyre1.png" data-description="..." alt="part 9"></a>
+            <a href="#"><img src="./img/light1.png" data-description="..." alt="part 10"></a>
+          </div>
+        </div>
+      
+        <div class="scroll-container right-to-left">
+          <div class="image-track">
+            <!-- Row 2 -->
+            <a href="#"><img src="./img/light1.png" data-description="..." alt="part 10"></a>
+            <a href="#"><img src="./img/tyre1.png" data-description="..." alt="part 9"></a>
+            <a href="#"><img src="./img/suspension2.png" data-description="..." alt="part 8"></a>
+            <a href="#"><img src="./img/tyre.png" data-description="..." alt="part 7"></a>
+            <a href="#"><img src="./img/suspension.png" data-description="..." alt="part 6"></a>
+            <a href="#"><img src="./img/suspension3.png" data-description="..." alt="part 5"></a>
+            <a href="#"><img src="./img/brake2.png" data-description="..." alt="part 4"></a>
+            <a href="#"><img src="./img/light3.png" data-description="..." alt="part 3"></a>
+            <a href="#"><img src="./img/light2.png" data-description="..." alt="part 2"></a>
+            <a href="#"><img src="./img/brake.png" data-description="..." alt="suspension"></a>
+            <a href="#"><img src="./img/light1.png" data-description="..." alt="part 10"></a>
+            <a href="#"><img src="./img/tyre1.png" data-description="..." alt="part 9"></a>
+            <a href="#"><img src="./img/suspension2.png" data-description="..." alt="part 8"></a>
+            <a href="#"><img src="./img/tyre.png" data-description="..." alt="part 7"></a>
+            <a href="#"><img src="./img/suspension.png" data-description="..." alt="part 6"></a>
+            <a href="#"><img src="./img/suspension3.png" data-description="..." alt="part 5"></a>
+            <a href="#"><img src="./img/brake2.png" data-description="..." alt="part 4"></a>
+            <a href="#"><img src="./img/light3.png" data-description="..." alt="part 3"></a>
+            <a href="#"><img src="./img/light2.png" data-description="..." alt="part 2"></a>
+            <a href="#"><img src="./img/brake.png" data-description="..." alt="suspension"></a>
+          </div>
+          
+        </div>
+      
+        <!-- Blur edges -->
+        <div class="blur-edge left"></div>
+        <div class="blur-edge right"></div>
+
+        <!-- Lightbox Overlay -->
+        <div class="lightbox" id="lightbox">
+            <span class="close-lightbox" onclick="closeLightbox()">×</span>
+            <span class="arrow left" onclick="changeImage(-1)">&#10094;</span>
+            <span class="arrow right" onclick="changeImage(1)">&#10095;</span>
+          
+            <div class="lightbox-content">
+              <div class="lightbox-description" id="lightbox-description"></div>
+              <div class="lightbox-image"><img id="lightbox-img" src="" alt="Preview"></div>
+            </div>
+        </div>
+      </section>
+      
+</body>
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxDesc = document.getElementById('lightbox-description');
+    const images = Array.from(document.querySelectorAll('.image-track img'));
+    let currentIndex = -1;
+  
+    images.forEach((img, index) => {
+      img.addEventListener('click', (e) => {
+        e.preventDefault();
+        currentIndex = index;
+        openLightbox(img.src, img.dataset.description || "No description provided.");
+      });
+    });
+  
+    function openLightbox(src, description) {
+      lightboxImg.src = src;
+      lightboxDesc.textContent = description;
+      lightbox.style.display = 'flex';
+    }
+  
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+      lightboxDesc.textContent = '';
+      currentIndex = -1;
+    }
+  
+    function changeImage(direction) {
+      if (currentIndex === -1) return;
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      const img = images[currentIndex];
+      openLightbox(img.src, img.dataset.description || "No description provided.");
+    }
+  
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+  
+    document.addEventListener('keydown', function (e) {
+      if (lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowRight') changeImage(1);
+        if (e.key === 'ArrowLeft') changeImage(-1);
+        if (e.key === 'Escape') closeLightbox();
+      }
+    });
+  </script>  
+  <script>
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 10) {
+        header.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+      } else {
+        header.style.boxShadow = 'none';
+      }
+    });
+  </script>
+  
+</html>

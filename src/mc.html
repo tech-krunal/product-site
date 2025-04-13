@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoPartix | Payment</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #333, #777);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #333, #777);
+      padding-right: 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      background: #bbb3b3;
+      color: #222;
+      padding: 1rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.4rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffc107;
+    }
+
+    .search {
+      background: rgb(241, 239, 239);
+      color: black;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .payment-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    .payment-box h1 {
+        display: flex;
+        align-items: center;
+        gap: 0px;
+        font-size: 0rem;
+        margin-bottom: 20px;
+        justify-content: center;
+        background: azure;
+        border-radius: 15px;
+    }
+
+    .payment-box img.gpay-icon {
+      height: 100px;
+    }
+
+    label, p {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        font-size: 1rem;
+        margin-bottom: 15px;
+        margin-top: 5px;
+        background: unset;
+        border-bottom: 2px solid rgb(255, 255, 255);
+        color: white;
+        font-family: cursive;
+        outline: none;
+    }
+
+    input[type="text"]::placeholder {
+        color: rgba(255, 255, 255, 0.6); 
+}
+
+    .or-divider {
+        text-align: center;
+        margin: 20px 0;
+        font-style: italic;
+        font-weight: 900;
+        font-family: sans-serif;
+        opacity: 0.8;
+    }
+
+    .qr-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .qr-section img {
+      height: 15rem;
+      border-radius: 20px;
+    }
+
+    .qr-section button {
+      background-color: #00c853;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      right: 3rem;
+      position: relative;
+    }
+
+    .qr-section button:hover {
+      background-color: #00b147;
+    }
+
+    @media (max-width: 600px) {
+      .qr-section {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+
+      .qr-section button {
+        align-self: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <img src="https://files.svgcdn.io/gravity-ui/gear-play.svg" alt="logo" /> AutoPartix
+        </a>
+    </div>
+    <nav>
+      <a href="index.html#about">About</a>
+      <a href="product.html">Products</a>
+      <a href="index.html#g">Photo</a>
+      <a href="shop.html">Shop</a>
+      <div class="search"><img src="https://img.icons8.com/?size=512&id=59878&format=png" height="20" width="20"/>Search</div>
+    </nav>
+  </header>
+
+  <!-- Payment Section -->
+  <section class="section">
+    <div class="payment-box">
+        <h1><img class="gpay-icon" src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="GPay Icon"></h1>
+        <label for="gpay-id">Enter Card Number:</label>
+        <input type="text" id="gpay-id" placeholder="yourname@okhdfcbank">
+
+        <label for="gpay-id">Enter Expiry Date:</label>
+        <input type="text" id="gpay-id" placeholder="MM/YY">
+
+        <label for="gpay-id">Enter CVV:</label>
+        <input type="text" id="gpay-id" placeholder="123">
+
+  
+        <div class="or-divider">OR</div>
+  
+        <div class="qr-section">
+          <img src="img/image 2.png" alt="QR Code">
+          <button onclick="window.location.href='processing.html'">Enter</button>
+        </div>
+      </div>
+  </section>
+
+</body>
+</html>

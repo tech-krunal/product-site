@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoPartix | Products</title>
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <style>
+    /* General Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html{
+        scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #333, #777);
+      
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      height:fit-content;
+      width: 100%;
+      /* backdrop-filter: blur(10px); */
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #333, #777);
+      padding-right: 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+        background: #bbb3b3;
+        color: #222;
+        padding: 1rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.4rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffc107;
+    }
+
+    .search {
+      background: rgb(241, 239, 239);
+      color: black;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .section {
+        padding: 100px 20px 60px;
+        text-align: center;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .hero {
+      background: url("./img/image\ 1.png") center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: fadeIn 2s ease;
+      gap: 50px;
+
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .product-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1000px;
+    }
+
+    .product-item {
+        flex: 1 1 calc(50% - 30px);
+        text-align: center;
+        animation: zoomIn 0.8s ease forwards;
+        animation-delay: 0.3s;
+        opacity: 0;
+    }
+
+    .product-item img {
+      width: auto;
+      max-width: 300px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .product-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .product-item h3 {
+      margin-bottom: 15px;
+    }
+
+    /* Product Description Section */
+    .product-section {
+        display: flex;
+        height: 100vh;
+        justify-content: space-between;
+        align-items: center;
+        padding: 80px 50px;
+        gap: 40px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards;
+        animation-delay: 0.3s;
+    }
+
+    .product-section:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .product-section:nth-child(even) img {
+        animation: slideInRight 1s ease forwards;
+        animation-delay: 0.5s;
+        opacity: 0;
+  }
+
+    .product-section:nth-child(even) .product-text {
+        animation: slideInLeft 1s ease forwards;
+        animation-delay: 0.3s;
+        opacity: 0;
+        padding: 60px;
+  }
+
+    .product-section:nth-child(odd) .product-text {
+        animation: slideInRight 1s ease forwards;
+        animation-delay: 0.3s;
+        opacity: 0;
+        padding: 60px;
+    }
+
+    .product-section:nth-child(odd) img {
+        animation: slideInLeft 1s ease forwards;
+        animation-delay: 0.5s;
+        opacity: 0;
+    }
+    .product-section img {
+      width: auto;
+      max-width: 400px;
+      border-radius: 10px;
+    }
+
+    .product-text {
+      flex: 1;
+    }
+
+    .product-text h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .product-text p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .product-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .product-item {
+        flex: 1 1 100%;
+      }
+
+      .product-section {
+        flex-direction: column;
+      }
+
+      .product-section:nth-child(even) {
+        flex-direction: column;
+      }
+    }
+    /* Animations */
+    @keyframes fadeInUp {
+        0% {
+        transform: translateY(40px);
+        opacity: 0;
+        }
+        100% {
+        transform: translateY(0);
+        opacity: 1;
+        }
+    }
+
+    @keyframes zoomIn {
+        0% {
+        transform: scale(0.8);
+        opacity: 0;
+        }
+        100% {
+        transform: scale(1);
+        opacity: 1;
+        }
+    }
+
+    @keyframes slideInLeft {
+        0% {
+        transform: translateX(-50px);
+        opacity: 0;
+        }
+        100% {
+        transform: translateX(0);
+        opacity: 1;
+        }
+    }
+
+    @keyframes slideInRight {
+        0% {
+        transform: translateX(50px);
+        opacity: 0;
+        }
+        100% {
+        transform: translateX(0);
+        opacity: 1;
+        }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <img src="https://files.svgcdn.io/gravity-ui/gear-play.svg" alt="logo" /> AutoPartix
+        </a>
+    </div>
+    <nav>
+      <a href="index.html#about">About</a>
+      <a href="product.html">Products</a>
+      <a href="index.html#g">Photo</a>
+      <a href="shop.html">Shop</a>
+      <div class="search"><img src="https://img.icons8.com/?size=512&id=59878&format=png" height="20" width="20"/>Search</div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>PRODUCTS</h1>
+    <div class="product-grid">
+      <div class="product-item">
+        <h3>Suspension</h3>
+        <a href="#product1"><img src="./img/image (1).png" alt="Product 1"  height = "200" ></a>
+      </div>
+      <div class="product-item">
+        <h3>Brakes</h3>
+        <a href="#product2"><img src="./img/pngwing.com 1.png" alt="Product 2" height="200"></a>
+      </div>
+      <div class="product-item">
+        <h3>Lights</h3>
+        <a href="#product3"><img src="./img/image.png" alt="Product 3"></a>
+      </div>
+      <div class="product-item">
+        <h3>Tyres</h3>
+        <a href="#product4"><img src="./img/pngwing.com (4) 1.png" alt="Product 4" height="200"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Descriptions -->
+  <section id="product1" class="product-section">
+    <div class="product-text">
+      <h2>Suspension</h2>
+      <p>The Back Country system offers a comfortable on road ride, but packs more damping and big hit absorption capacity than the Commuter system. If your truck is doing dual duty on the street and dirt, but the King Pintop system is out of the price range, this is your system. In fact, it's probably the best bang for the buck suspension performance gain you can bolt onto a 2017+ Super Duty truck and offers the best on and off road ride short of the E-Venture.
+        <br><br>
+        At the heart of this system is completely custom Carli spec 2.0 reservoir shocks.  Unlike other brands that use off the shelf shocks, Carli went to the drawing board to design a completely custom and tuned shock for the 2017+ Super Duty platform, with unique valving for both gas and diesel trucks. These Remote Reservoir Shocks provide users with a comfortable, greatly improved on-road ride and ample off-road capability.
+        </p>
+    </div>
+    <img src="./img/pngwing.com (5) 1.png" alt="Product 1">
+  </section>
+
+  <section id="product2" class="product-section">
+    <div class="product-text">
+      <h2>Brakes</h2>
+      <p>For track day enthusiasts, the GT | M4 kit delivers uncompromising performance—engineered and rigorously tested to provide exceptional rigidity, minimized flex, aggressive styling, and track-dominating capability. Perfect for spirited street driving or your most demanding circuit sessions.
+
+        At its core, the kit features monobloc aluminum calipers, precision-machined from a single casting in Brembo’s foundry for maximum stiffness and minimal deformation under extreme loads. Paired with high-performance discs featuring an advanced ventilation system, the kit boosts cooling efficiency and enhances crack resistance by over 40%—ensuring relentless stopping power, even under brutal thermal stress.</p>
+    </div>
+    <img src="./img/pngwing.com (2) 1.png" alt="Product 2">
+  </section>
+
+  <section id="product3" class="product-section">
+    <div class="product-text">
+      <h2>Lights</h2>
+      <p>One of RIGID's most versatile, compact lighting solutions just got better with the RIGID D-SS PRO, Dually-Side Shooter LED pod light. Perfect for any application that requires a wide spread beam, including A-Pillars, fog lights, and motorcycle applications. The D-SS PRO incorporates powerful optics and recently improved LED technology for greater output with the added benefit of additional LEDs aimed to the side for a much broader beam. The D-SS PRO packs a powerful punch with up to 102 percent more raw lumens. The D-SS PRO feature 120-degrees of horizontal lighting coverage. The main forward-facing LEDs are available with RIGID's advanced Spot, Flood, or Driving optics, so there is a D-SS PRO lighting solution for nearly any application. The D-SS PRO LED lights are available in pairs with three side-shooting LEDs on one side of each light, or in single applications with a pair of side-shooting LEDs on both sides of the light. Only RIGID provides a broad, powerful lighting solution in such a compact package. Own The Night with RIGID's original side shooter LED light.</p>
+    </div>
+    <img src="./img/pngwing.com (3) 1.png" alt="Product 3">
+  </section>
+
+  <section id="product4" class="product-section">
+    <div class="product-text">
+      <h2>Tyres</h2>
+      <p>Take on Earth's toughest terrain with advanced Krawl-TEK compound that enhances grip on rock and slick surfaces, with 8% better traction.Plus, a Linear Flex Zone allows the tire to flex and envelop objects in aired-down driving situations.
+        The BFGoodrich Mud-Terrain T/A KM3 tire is must-have equipment for the serious off-road enthusiast when conditions require extreme traction and toughness.
+        <br>Baja Champion
+        <br>Coregard Max Technology
+        <br>Krawl-Tek Compound
+        </p>
+    </div>
+    <img src="./img/pngwing.com (4) 1.png" alt="Product 4" height="300">
+  </section>
+
+</body>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+  
+    document.querySelectorAll('.product-item, .product-section').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+
+    document.querySelectorAll('.image-container').forEach(container => {
+    container.addEventListener('click', (e) => {
+      const id = e.target.closest('.image-container').id;
+      document.getElementById(id + '-description').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  </script>
+</html>
